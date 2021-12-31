@@ -35,8 +35,7 @@ export default class Token {
         x,
         y,
         color,
-        token: this.token,
-      });
+      }, this.token);
       if (result) {
         this.nextCd = new Date().valueOf() + CD;
         return true;

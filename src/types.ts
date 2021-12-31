@@ -36,7 +36,6 @@ export interface Paint {
   x: number;
   y: number;
   color: number;
-  token: string;
 }
 
 export interface Subscription {
