@@ -4,9 +4,24 @@
 
 洛谷冬日绘板助手 Luogu Motaki 的客户端，[项目主仓库](https://github.com/ouuan/luogu-motaki)
 
+## 安装
+
+你可以在 [Actions](https://github.com/ouuan/luogu-motaki-client/actions/workflows/pkg.yml?query=is%3Asuccess) 中找到最新的一个 run，点进去，下载 Artifacts。
+
+或者，你可以运行下面的命令：（需要 [Git](https://git-scm.com/download/), [Node.js](https://nodejs.org/zh-cn/) 和 [pnpm](https://pnpm.io/zh/installation)）
+
+```bash
+git clone https://github.com/ouuan/luogu-motaki-client
+cd luogu-motaki-client
+pnpm i
+pnpm build
+```
+
+然后运行 `node .` 就可以了。
+
 ## 配置
 
-配置放在运行目录下的 `motaki-config.txt` 中。
+配置放在运行目录下的 `motaki-config.txt` 中。有了配置文件之后直接运行就好了。
 
 配置文件被分隔符 `---` 分成若干块，每一块中有若干 token，服务器地址和任务名称。不同块之间相互独立，但是同一个 uid 的 token 只能放在一块里面。
 
