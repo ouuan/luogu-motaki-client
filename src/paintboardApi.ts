@@ -11,8 +11,8 @@ export default async function paint(data: Paint): Promise<boolean> {
         Referer: REQUIRED_REFERER,
       },
     });
-    verdict = response.status.toString();
-    return response.status === 200;
+    verdict = (response.status === 200 ? response.data.status : response.status).toString();
+    return verdict === '200';
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
