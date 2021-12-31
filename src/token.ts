@@ -9,6 +9,8 @@ import { JobSuccess, Subscription } from './types';
 export default class Token {
   failInARow = 0;
 
+  nextCd = 0;
+
   async getJob(): Promise<[string, JobSuccess]> {
     while (true) {
       for (const { url, names } of this.subscriptions) {
@@ -35,7 +37,10 @@ export default class Token {
         col,
         token: this.token,
       });
-      if (result) return true;
+      if (result) {
+        this.nextCd = new Date().valueOf() + CD;
+        return true;
+      }
       await sleep(500);
     }
     return false;
@@ -80,7 +85,10 @@ export default class Token {
       }
     }
 
-    setTimeout(() => this.getJobAndDoIt(), success ? CD - 500 : CD / 2);
+    setTimeout(
+      () => this.getJobAndDoIt(),
+      success ? Math.max(500, this.nextCd - new Date().valueOf()) : CD / 2,
+    );
   }
 
   constructor(public token: string, public subscriptions: Subscription[]) {
