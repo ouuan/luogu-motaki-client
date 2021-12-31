@@ -18,8 +18,8 @@ export default async function paint(data: Paint, token: string): Promise<boolean
         },
       },
     );
-    verdict = (response.status === 200 ? response.data.status : response.status).toString();
-    return verdict === '200';
+    verdict = response.status.toString();
+    return response.status === 200;
   } catch (e) {
     const err = (e as any)?.response;
     if (err) {
