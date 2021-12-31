@@ -21,9 +21,12 @@ export default async function paint(data: Paint, token: string): Promise<boolean
     verdict = (response.status === 200 ? response.data.status : response.status).toString();
     return verdict === '200';
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
-    verdict = 'ERROR';
+    const err = (e as any)?.response;
+    if (err) {
+      // eslint-disable-next-line no-console
+      console.error(err.data);
+      verdict = err.status.toString();
+    } else verdict = 'ERROR';
     return false;
   } finally {
     const uid = token.split(':')[0];
