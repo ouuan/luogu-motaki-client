@@ -16,6 +16,12 @@ export default class Token {
         if (job?.status === 'success') {
           return [url, job];
         }
+        if (job?.status === 'blocked') {
+          log('warn', `blocked by ${url} until ${new Date(job.blockedUntil).toLocaleTimeString()}`);
+        }
+        if (job?.status === 'not-found') {
+          log('error', `task not found: ${names.join(', ')}`);
+        }
       }
       await sleep(1000);
     }
