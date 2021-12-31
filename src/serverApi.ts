@@ -1,4 +1,5 @@
 import axios from 'axios';
+import log from './log';
 import { FinishJob, Job, JobStatus } from './types';
 
 export async function newJob(serverUrl: string, names: string[]): Promise<Job | null> {
@@ -7,8 +8,7 @@ export async function newJob(serverUrl: string, names: string[]): Promise<Job | 
     if (response.status === 200) return response.data;
     return null;
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(`ERROR   GET ${serverUrl}/job/new`);
+    log('error', `GET ${serverUrl}/job/new`);
     return null;
   }
 }
@@ -19,8 +19,7 @@ export async function finishJob(serverUrl: string, finish: FinishJob): Promise<J
     if (response.status === 200) return response.data.status;
     return null;
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(`ERROR   POST ${serverUrl}/job/finish`);
+    log('error', `POST ${serverUrl}/job/finish`);
     return null;
   }
 }

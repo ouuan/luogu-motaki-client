@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
 import axios from 'axios';
 import { PAINTBOARD_URL } from './constants';
+import log from './log';
 import { Paint } from './types';
 
 export default async function paint(data: Paint): Promise<boolean> {
@@ -10,11 +10,12 @@ export default async function paint(data: Paint): Promise<boolean> {
     verdict = response.status.toString();
     return response.status === 200;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
     verdict = 'ERROR';
     return false;
   } finally {
     const uid = data.token.split(':')[0];
-    console.log(`${verdict.padEnd(7)} ${uid.padStart(7)}: (${data.x}, ${data.y}, ${data.col})`);
+    log('info', `${uid.padStart(7)}: (${data.x}, ${data.y}, ${data.col})`, verdict);
   }
 }

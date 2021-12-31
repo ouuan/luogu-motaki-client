@@ -1,6 +1,7 @@
 /* eslint-disable no-await-in-loop */
 import sleep from 'sleep-promise';
 import { CD } from './constants';
+import log from './log';
 import paint from './paintboardApi';
 import { finishJob, newJob } from './serverApi';
 import { JobSuccess, Subscription } from './types';
@@ -62,11 +63,9 @@ export default class Token {
     else this.failInARow += 1;
 
     if (this.failInARow >= 3) {
-      // eslint-disable-next-line no-console
-      console.warn(`WARN    ${this.token} failed ${this.failInARow} times in a row`);
+      log('warn', `${this.token} failed ${this.failInARow} times in a row`);
       if (this.failInARow >= 5) {
-        // eslint-disable-next-line no-console
-        console.error(`ERROR   stopped ${this.token}`);
+        log('error', `stopped ${this.token}`);
         return;
       }
     }
