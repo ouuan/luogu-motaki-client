@@ -1,12 +1,16 @@
 import axios from 'axios';
-import { PAINTBOARD_URL } from './constants';
+import { PAINTBOARD_URL, REQUIRED_REFERER } from './constants';
 import log from './log';
 import { Paint } from './types';
 
 export default async function paint(data: Paint): Promise<boolean> {
   let verdict = 'UNKNOWN';
   try {
-    const response = await axios.post(`${process.env.LUOGU_MOTAKI_PAINTBOARD_URL || PAINTBOARD_URL}/paint`, data);
+    const response = await axios.post(`${process.env.LUOGU_MOTAKI_PAINTBOARD_URL || PAINTBOARD_URL}/paint`, data, {
+      headers: {
+        Referer: REQUIRED_REFERER,
+      },
+    });
     verdict = response.status.toString();
     return response.status === 200;
   } catch (e) {
