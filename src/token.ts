@@ -51,12 +51,16 @@ export default class Token {
 
     const { x, y, uuid } = job;
 
-    await finishJob(url, {
+    const jobStatus = await finishJob(url, {
       x,
       y,
       uuid,
       success,
     });
+
+    if (jobStatus !== 'success') {
+      log('warn', `${this.token.split(':')[0]}: job status of ${url} is ${jobStatus}`);
+    }
 
     return success;
   }
