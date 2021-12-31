@@ -29,12 +29,12 @@ export default class Token {
     }
   }
 
-  async paintRetry({ x, y, col }: JobSuccess) {
+  async paintRetry({ x, y, color }: JobSuccess) {
     for (let i = 0; i < 10; i += 1) {
       const result = await paint({
         x,
         y,
-        col,
+        color,
         token: this.token,
       });
       if (result) {

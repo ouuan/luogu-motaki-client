@@ -3,7 +3,7 @@ export interface JobSuccess {
   uuid: string;
   x: number;
   y: number;
-  col: number;
+  color: number;
   timeLimit: number;
 }
 
@@ -35,7 +35,7 @@ export type JobStatus = 'success' | 'failed' | 'unverified' | 'error';
 export interface Paint {
   x: number;
   y: number;
-  col: number;
+  color: number;
   token: string;
 }
 
