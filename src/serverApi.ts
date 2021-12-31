@@ -4,11 +4,11 @@ import { FinishJob, Job, JobStatus } from './types';
 
 export async function newJob(serverUrl: string, names: string[]): Promise<Job | null> {
   try {
-    const response = await axios.get(`${serverUrl}/job/new`, { params: { names } });
+    const response = await axios.post(`${serverUrl}/job/new`, { names });
     if (response.status === 200) return response.data;
     return null;
   } catch (e) {
-    log('error', `GET ${serverUrl}/job/new`);
+    log('error', `POST ${serverUrl}/job/new`);
     return null;
   }
 }
