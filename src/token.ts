@@ -54,7 +54,12 @@ export default class Token {
 
     const success = await Promise.any([this.paintRetry(job), waitTimeLimit()]);
 
-    const { x, y, uuid } = job;
+    const {
+      x,
+      y,
+      color,
+      uuid,
+    } = job;
 
     const jobStatus = await finishJob(url, {
       x,
@@ -64,7 +69,7 @@ export default class Token {
     });
 
     if (jobStatus !== 'success') {
-      log('warn', `${this.token.split(':')[0]}: job status of ${url} is ${jobStatus}`);
+      log('warn', `${this.token.split(':')[0]}: job status of (${x}, ${y}, ${color})@<${url}> is ${jobStatus}`);
     }
 
     return success;
