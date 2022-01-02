@@ -3,7 +3,7 @@ import { PAINTBOARD_URL, REQUIRED_REFERER } from './constants';
 import log from './log';
 import { Paint } from './types';
 
-export default async function paint(data: Paint, token: string): Promise<boolean> {
+export default async function paint(data: Paint, token: string): Promise<number> {
   let verdict = 'UNKNOWN';
   try {
     const response = await axios.post(
@@ -19,15 +19,17 @@ export default async function paint(data: Paint, token: string): Promise<boolean
       },
     );
     verdict = response.status.toString();
-    return response.status === 200;
+    return response.status;
   } catch (e) {
-    const err = (e as any)?.response;
-    if (err) {
+    const response = (e as any)?.response;
+    if (response) {
       // eslint-disable-next-line no-console
-      console.error(err.data);
-      verdict = err.status.toString();
-    } else verdict = 'ERROR';
-    return false;
+      console.error(response.data);
+      verdict = response.status.toString();
+      return response.status;
+    }
+    verdict = 'ERROR';
+    return -1;
   } finally {
     const uid = token.split(':')[0];
     log('info', `${uid.padStart(7)}: (${data.x}, ${data.y}, ${data.color})`, verdict);
