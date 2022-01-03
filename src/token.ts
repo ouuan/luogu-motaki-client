@@ -36,10 +36,14 @@ export default class Token {
         y,
         color,
       }, this.token);
-      if ([200, 418, 500].includes(result)) {
+      if ([200, 500].includes(result)) {
         if (result !== 200) log('warn', `status ${result} is treated as a successful status`);
         this.nextCd = new Date().valueOf() + CD;
         return true;
+      }
+      if (result === 418) {
+        this.nextCd = new Date().valueOf() + CD;
+        return false;
       }
       await sleep(500);
     }
